@@ -1,21 +1,24 @@
 const passport = require("passport");
 const UserInfoError = require("passport-google-oauth20/lib/errors/userinfoerror");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("../keys");
+const keys = require("../config/keys");
 const mongoose = require('mongoose');
-mongoose.connect(keys.mongoDb);
+
 const User = mongoose.model('users');
 
 
+
+
 //Understanding serialize/deserialize process https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
+//.id defaults to _id value, UID for mongoDB
 passport.serializeUser(function(user, done) {
-    console.log(user.id);
     done(null, user.id);
   });
-  
-  passport.deserializeUser(function(id, done) {
+
+passport.deserializeUser(function(id, done) {
+    //Debugger data
+    console.log("Deserialized");
     User.findById(id,(err,user)=>{
-        console.log("Deserialized" + user);
         done(err,user)
     })
   });
