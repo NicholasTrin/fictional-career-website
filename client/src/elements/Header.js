@@ -1,4 +1,5 @@
-import react from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
 function Header() {
   return (
@@ -8,13 +9,32 @@ function Header() {
           Fictional Career
         </a>
         <ul id="nav-mobile" className="right">
-          <li>
-            <a href="/auth/google">Login with google</a>
-          </li>
+          {renderAuthenticationContent()}
         </ul>
       </div>
     </nav>
   );
+}
+
+function renderAuthenticationContent() {
+  const { auth_state } = GetAuthState();
+  switch (auth_state) {
+    case null:
+      return;
+    case false:
+      return (
+        <li>
+          <a href="/auth/google">Login with google</a>
+        </li>
+      );
+    default:
+      return <a href="/api/logout">Logout</a>;
+  }
+}
+
+function GetAuthState() {
+  const auth_state = useSelector((state) => state.auth);
+  return { auth_state };
 }
 
 export default Header;

@@ -6,12 +6,11 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import "materialize-css/dist/css/materialize.min.css";
 
-import rootReducer from './reducers';
+import combineReducers from './reducers';
 import App from "./elements/App";
 
-
 const store = configureStore({
-  reducer: rootReducer
+  reducer: combineReducers
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -20,5 +19,3 @@ root.render(
     <App />
   </Provider>
 );
-
-//ReactDom.createPortal(app,);

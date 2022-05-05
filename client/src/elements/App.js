@@ -1,30 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import * as actions from "../actions"
+
 
 import Header from './Header';
 const Landing = () => <h2>Landing</h2>;
 
 function App() {
+  GlobalDispatchers()
   return (
     <div className="container">
       <BrowserRouter>
-        <Header />
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path ='/' element={<Header/>}/>
+          <Route exact path="/" element={<Landing />} />
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
 
+function GlobalDispatchers(){
+  const dispatch = useDispatch();
+  dispatch(actions.fetchUser())
+}
+
 export default App;
-/*
-  <div>
-      <BrowserRouter>
-        <Routes>
-            <Route path='/' Component={Landing}/>
-        </Routes>
-      </BrowserRouter>
-    </div>
-*/
