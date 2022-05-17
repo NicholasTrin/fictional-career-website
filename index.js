@@ -4,6 +4,7 @@ const cookieSession = require("cookie-session");
 const keys = require("./config/keys");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 require("./schemas/user");
 require("./services/passport");
 
@@ -25,8 +26,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-require("./routes/authRoutes")(app);
+//Json Parser for requests
+app.use(bodyParser.json());
 
+
+require("./routes/authRoutes")(app);
+require("./routes/blogRoutes")(app);
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {

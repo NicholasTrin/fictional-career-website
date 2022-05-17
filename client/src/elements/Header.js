@@ -1,14 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
     <nav>
       <div className="nav-wrapper">
-        <a href="/" className="website-tag left">
-          Fictional Career
-        </a>
+        <Link to='/' className="website-tag left">
+          Nick's House
+        </Link>
         <ul id="nav-mobile" className="right">
+          <li>
+            <Link to="/blog">Blog</Link>
+          </li>
           {renderAuthenticationContent()}
         </ul>
       </div>
@@ -28,7 +32,11 @@ function renderAuthenticationContent() {
         </li>
       );
     default:
-      return <a href="/api/logout">Logout</a>;
+      return (
+        <li>
+          <a href="/api/logout">Logout</a>
+        </li>
+      );
   }
 }
 
